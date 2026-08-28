@@ -8,3 +8,4 @@ eyed3==0.9.7
 ytmusicapi==1.10.2
 httpx[http2]==0.28.1
 python-dotenv==1.1.0
+aiosqlite==0.21.0

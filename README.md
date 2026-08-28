@@ -325,3 +325,27 @@ Stay connected for updates and discussions!
 
 
 🚀 **Enjoy using Music Recognition Bot!**
+
+## AsoMusicBot download engine (updated)
+
+The music flow now behaves like a direct music finder: selecting a search result starts the audio download immediately. Successful files are uploaded to Telegram as real audio messages and the resulting Telegram `file_id` is cached in the existing `musics.file_id` column, so later requests can be served without downloading the source again.
+
+### YouTube strategy
+
+- `aria2c` is no longer required.
+- The downloader uses yt-dlp's own HTTP/fragment downloader.
+- Multiple YouTube player clients are attempted in sequence.
+- Cookies are optional, not mandatory.
+- If `YOUTUBE_COOKIES_PATH` or `YOUTUBE_COOKIES_B64` is configured, a cookie-backed fallback is attempted after the guest strategies.
+- `YOUTUBE_PROXY` is optional.
+- The final Telegram audio is converted to MP3 at 192 kbps.
+- Temporary files are removed after upload.
+- Concurrent requests for the same song are serialized to avoid duplicate downloads.
+
+### Render
+
+Keep the existing Web Service start command:
+
+`python main.py --webhook --port=$PORT`
+
+Recommended environment variables are listed in `.env.example`. Never commit a real `.env` or a real `cookies.txt` file to GitHub.
